@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const AddUser = () => {
-
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     name:'',
     email:'',
@@ -10,6 +11,7 @@ export const AddUser = () => {
   const handleAddUser = () => {
     setValues({name:'', email:''})
     console.log(values)
+    navigate('/')
   }
 
   return (
@@ -24,7 +26,7 @@ export const AddUser = () => {
       value={values.name}
       placeholder='ur name'
       />
-      <label>Email</label>
+      <label className='mt-5'>Email</label>
       <input
       className='bg-gray-200 py-2 px-3 border-2 outline-none'
       label="Email"
@@ -34,7 +36,7 @@ export const AddUser = () => {
       placeholder='urname@gmail.com'
       />
       
-      <button onClick={handleAddUser}>Submit</button>
+      <button className='bg-indigo-600 text-white py-2 px-6 my-10 rounded hover:bg-indigo-700' onClick={handleAddUser}>Submit</button>
       
     </div>
   )
