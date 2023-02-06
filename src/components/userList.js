@@ -1,31 +1,26 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { deleteUser } from "../redux/userSlice";
 
 export const UserList = () => {
-  const users = useSelector((store) => store.users);
-  console.log("users", users);
+  const { users } = useSelector((store) => store.users);
+  console.log(users);
+  const dispatch = useDispatch();
+  const handleRemoveUser = (id) => {
+    dispatch(deleteUser({ id: id }));
+  };
   const renderCard = () =>
     users.map((user) => (
-      <div
-        key={user.id}
-        className="bg-gray-300 p-5 flex items-center justify-between"
-      >
+      <div key={user.id} className="bg-gray-300 p-5 flex items-center justify-between">
         <div>
           <h3 className="font-bold text-lg text-gray-700">{user.name}</h3>
           <span className="font-normal text-gray-600">{user.email}</span>
         </div>
 
         <div className="flex gap-2">
-          <Link to="/EditUser">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
+          <Link to={`EditUser/${user.id}`}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -33,20 +28,9 @@ export const UserList = () => {
               />
             </svg>
           </Link>
-          <button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
+          <button onClick={() => handleRemoveUser(user.id)}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </button>
         </div>
@@ -54,13 +38,7 @@ export const UserList = () => {
     ));
   return (
     <div id="UserList" className="grid gap-5 md:grid-cols-2">
-      {users.length ? (
-        renderCard()
-      ) : (
-        <p className=" text-center col-span-2 text-gray-700 font-semibold">
-          NO USER
-        </p>
-      )}
+      {users.length > 0 ? renderCard() : <p className=" text-center col-span-2 text-gray-700 font-semibold">NO USER</p>}
     </div>
   );
 };
