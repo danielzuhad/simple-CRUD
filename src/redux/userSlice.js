@@ -21,10 +21,12 @@ const userSlice = createSlice({
     },
     deleteUser: (state, action) => {
       const { id } = action.payload;
-      const existingUser = state.users.find((user) => user.id === id);
-      if (existingUser) {
-        return state.users.filter((user) => user.id !== id);
-      }
+      // const existingUser = state.users.find((user) => user.id === id);
+      // if (existingUser) {
+      //   return state.users.filter((user) => user.id !== id);
+      // }
+      const existingUser = state.users.filter((user) => user.id !== id);
+      state.users = existingUser;
     },
   },
 });

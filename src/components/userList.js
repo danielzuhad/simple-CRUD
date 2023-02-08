@@ -38,7 +38,9 @@ export const UserList = () => {
     ));
   return (
     <div id="UserList" className="grid gap-5 md:grid-cols-2">
-      {users.length > 0 ? renderCard() : <p className=" text-center col-span-2 text-gray-700 font-semibold">NO USER</p>}
+      {/* {users.length > 0 ? renderCard() : <p className=" text-center col-span-2 text-gray-700 font-semibold">NO USER</p>} */}
+      {!users || users.length === 0 ? <p className=" text-center col-span-2 text-gray-700 font-semibold">NO USER</p> : renderCard()}
+      {/* {users?.length !== 0 ? renderCard() : <p className=" text-center col-span-2 text-gray-700 font-semibold">NO USER</p>} */}
     </div>
   );
 };
